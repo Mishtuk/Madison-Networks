@@ -112,9 +112,23 @@ npm run preview
 - Where form submissions should go, and whether to use a form service.
 
 ## Launching on madisonnetworkservices.com (after the client approves)
-1. In the deploy workflow, set the build env to `SITE=https://madisonnetworkservices.com` and `BASE=/`.
-2. Add `public/CNAME` containing the domain, and set the custom domain under Settings → Pages. Enforce HTTPS.
-3. DNS: point a `www` CNAME at `mishtuk.github.io` and add the apex A records 185.199.108.153, .109.153, .110.153 and .111.153.
+**Current setup (checked 2026-10-14):**
+- **Registrar and DNS:** Bluehost (ns1/ns2.bluehost.com). The domain expires 2029-03-08.
+- **Website:** the old WordPress site on Bluehost hosting, apex A record `162.241.230.118`, with `www` as a CNAME to the apex.
+- **Email:** MX records point to `madisonnetworkservices-com.mx1/mx2.arsmtp.com`. madisonworldwide.net email uses the same setup.
+- **Never touch the MX or mail TXT records.** Don't cancel the Bluehost hosting plan until you've confirmed where the mailboxes live.
+
+**Steps:**
+1. **Verify the domain on GitHub:** under Settings → Pages → "Add a domain" on the Mishtuk account, add the TXT record it shows in Bluehost DNS. This stops anyone else claiming the domain on GitHub.
+2. **Point the domain at GitHub Pages** in Bluehost (Domains → DNS):
+   - Replace the apex `A` record `162.241.230.118` with four A records: 185.199.108.153, 185.199.109.153, 185.199.110.153 and 185.199.111.153.
+   - Change the `www` CNAME to `mishtuk.github.io`.
+3. **Switch the build to the real domain** in the same session:
+   - In `.github/workflows/deploy.yml`, set the build env to `SITE=https://madisonnetworkservices.com` and `BASE=/`.
+   - Add `public/CNAME` containing `madisonnetworkservices.com`.
+   - Push, then set the custom domain under repo Settings → Pages.
+4. **Enable HTTPS:** once DNS has propagated (minutes to a few hours) and GitHub issues the certificate, tick "Enforce HTTPS".
+5. **Check:** the site loads on both the apex and `www`, and a test email to the company address still arrives. Keep the old WordPress hosting for a couple of weeks as a fallback.
 
 ## Out of scope unless requested
 A CMS or logins, a blog, a customer portal, online payments, or live chat.
