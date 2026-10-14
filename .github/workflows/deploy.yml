@@ -1,4 +1,4 @@
-﻿name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -17,6 +17,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Launch on the real domain: set repo variables SITE=https://madisonnetworkservices.com and BASE=/
+    # (Settings > Secrets and variables > Actions > Variables). Unset = the GitHub Pages preview.
+    env:
+      SITE: ${{ vars.SITE }}
+      BASE: ${{ vars.BASE }}
     steps:
       - uses: actions/checkout@v4
       - uses: withastro/action@v5

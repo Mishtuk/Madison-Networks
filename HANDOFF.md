@@ -84,7 +84,7 @@ This is a B2B contractor site. A visitor (an ISP or telecom project manager, NOC
 - **Astro**, static output. Plain CSS (`src/styles/global.css` plus component `<style>` blocks). No client framework; only small inline scripts. No new npm dependencies unless really needed.
 - **Facts:** company facts and nav live in `src/lib/site.ts` only. Never hard-code them in pages. Use base-aware links through `href()`.
 - **Config:** `astro.config.mjs` with `BASE` defaulting to `/Madison-Networks` and `SITE` to `https://mishtuk.github.io`, plus `build.inlineStylesheets: 'always'`.
-- **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (already in the repo). Pages source = "GitHub Actions".
+- **Hosting:** GitHub Pages via `.github/workflows/deploy.yml`. Pages source = "GitHub Actions". The workflow reads the `SITE` and `BASE` repo variables; when they're unset, it builds the preview.
 - **Per page:** sitemap, robots.txt, manifest and icons, Open Graph and a social image, and LocalBusiness JSON-LD on Home with only real fields.
 - **Contact form:** there is no backend yet.
   - For now the form builds a `mailto:` to contactus@madisonworldwide.net with the fields filled in, and the email address is always visible as plain text.
@@ -123,10 +123,12 @@ npm run preview
 2. **Point the domain at GitHub Pages** in Bluehost (Domains → DNS):
    - Replace the apex `A` record `162.241.230.118` with four A records: 185.199.108.153, 185.199.109.153, 185.199.110.153 and 185.199.111.153.
    - Change the `www` CNAME to `mishtuk.github.io`.
-3. **Switch the build to the real domain** in the same session:
-   - In `.github/workflows/deploy.yml`, set the build env to `SITE=https://madisonnetworkservices.com` and `BASE=/`.
-   - Add `public/CNAME` containing `madisonnetworkservices.com`.
-   - Push, then set the custom domain under repo Settings → Pages.
+3. **Switch the build to the real domain** in the same session. No code changes are needed.
+   - In the GitHub repo, go to Settings → Secrets and variables → Actions → Variables and add two repository variables: `SITE` = `https://madisonnetworkservices.com` and `BASE` = `/`.
+   - Under Settings → Pages, set the custom domain to `madisonnetworkservices.com`.
+   - Re-run the latest "Deploy to GitHub Pages" workflow (Actions tab → Re-run all jobs). Links, the sitemap, robots.txt and the manifest all follow the two variables.
+   - No `CNAME` file is needed: GitHub ignores it when deploying through Actions.
+   - **To roll back:** delete both variables, clear the custom domain and re-run the workflow. The site returns to the preview address.
 4. **Enable HTTPS:** once DNS has propagated (minutes to a few hours) and GitHub issues the certificate, tick "Enforce HTTPS".
 5. **Check:** the site loads on both the apex and `www`, and a test email to the company address still arrives. Keep the old WordPress hosting for a couple of weeks as a fallback.
 
