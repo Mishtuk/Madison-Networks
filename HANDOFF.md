@@ -5,7 +5,7 @@ This is a rebuild of https://madisonnetworkservices.com (currently a one-page Wo
 - **Preview (live):** https://mishtuk.github.io/Madison-Networks/. It redeploys automatically on every push to `main`.
 - **Repo:** https://github.com/Mishtuk/Madison-Networks. The local copy is `V:\MadisonNetworks`.
 - **Commits:** authored as `Mish <113945444+Mishtuk@users.noreply.github.com>`, set in the repo's git config.
-- **Status (2026-10-14):** the brief is written; the build hasn't started yet.
+- **Status (2026-10-14):** the first full build is live on the preview. All pages are built from `docs/design.md`. Lighthouse mobile scores 100/100/100/100 on Home and Contact, and there are 0 broken links. Next: the client input listed below.
 
 ## The company (facts from the live site only)
 - **Name on the site:** Madison Network Services. The original copy also says "Madison WorldWide" / "Madison Worldwide", and the domain is madisonworldwide.net. The brand is **Madison Network Services**, and this site is only about that business.

@@ -164,6 +164,9 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .text-link { color: var(--sand-ink); font-weight: 600; text-decoration: underline 1.5px; text-underline-offset: 3px; text-decoration-color: rgb(128 86 12 / 0.4); }
 .text-link:hover { text-decoration-color: currentColor; }
 .band-dark .text-link, .on-dark .text-link { color: var(--sand); text-decoration-color: rgb(252 208 136 / 0.5); }
+/* Tap targets: standalone links reach 44px (padding on inline links grows the hit area, not the line). */
+.link-arrow { display: inline-flex; align-items: center; min-height: 44px; }
+.text-link { padding-block: 0.7em; }
 
 /* ---------- Buttons ---------- */
 .btn {
