@@ -17,7 +17,7 @@ npm run build     # static site in dist/
 
 ## Common edits
 - Company facts (email, address, services, phone): `src/lib/site.ts`. Pages read from it.
-- Colours and styles: `src/styles/global.css`
+- Colors and styles: `src/styles/global.css`
 - Page content: `src/pages/*.astro`
 
 ## Going live on madisonnetworkservices.com
