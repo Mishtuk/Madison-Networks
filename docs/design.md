@@ -1,6 +1,6 @@
 # Madison Network Services: design spec
 
-Designer's spec for the coder. All styling lives in `src/styles/global.css`. Components need **markup only**: no `<style>` blocks unless something here is missing (then ask the designer). Every class named below already exists in global.css.
+Page-by-page layout spec. All styling lives in `src/styles/global.css`. Components need **markup only**: no `<style>` blocks unless something here is missing (then add it to global.css). Every class named below already exists in global.css.
 
 **Design read:** a B2B contractor site for ISP/telecom PMs, NOC staff and business owners. The language is calm, engineered and trust-first: light pages, charcoal bands, one sand accent, and the fiber light-burst as the only imagery. Dials: variance 5, motion 4, density 4.
 
@@ -38,7 +38,7 @@ Keep the two existing preloads (josefin-700 and open-sans-400) and remove the `T
 
 ### Imagery
 - `source/hero-original.jpg` is actually **4288×2848 landscape** (HANDOFF says portrait, which is wrong). The burst center sits at 51% / 52%.
-- The coder's existing `hero-wide-*` (16:9) and `hero-tall-*` (9:16) crops are fine. global.css positions them with `object-position` (tall: `50% 30%`).
+- The existing `hero-wide-*` (16:9) and `hero-tall-*` (9:16) crops are fine. global.css positions them with `object-position` (tall: `50% 30%`).
 - Optional refinement for desktop: a wide crop at x0=0, y0=570, 3200×1800 puts the burst at 68% x, away from the headline. Only do it if the hero looks crowded.
 - The same wide file is reused everywhere (hero, page heads, restoration card, emergency band, 404), so it's one cached download. Below the fold, use `loading="lazy" decoding="async"` and `alt=""`, because the image is decorative.
 - Icons are **Phosphor, regular weight**, with the SVG pasted inline. Copy each one from `https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/<name>.svg`. That's an MIT copy-paste, not a dependency. Use `viewBox="0 0 256 256" aria-hidden="true"`, no width/height attributes, and global.css sets the fill.
@@ -297,6 +297,6 @@ It's a charcoal band with the burst bleeding off the right (full width and dimme
 
 **Add later, when the client supplies the material:** a credentials strip (certifications, insurance) under the services, real job photos in `.svc-section-head`, and a logo in place of the wordmark.
 
-## 10. Open questions for the boss or client
+## 10. Open questions for the client
 1. Which name to use in the copy: the original paragraph says "Madison WorldWide". The spec uses `COMPANY.name` (Madison Network Services) everywhere. Confirm with the client.
 2. HANDOFF says the hero source is portrait, but it's landscape (4288×2848). Update HANDOFF.

@@ -81,7 +81,7 @@ This is a B2B contractor site. A visitor (an ISP or telecom project manager, NOC
 - **`404`**.
 
 ## Stack (same as Riverside)
-- **Astro**, static output. Plain CSS (`src/styles/global.css` plus component `<style>` blocks). No client framework; only small inline scripts. No new npm dependencies without the boss's OK.
+- **Astro**, static output. Plain CSS (`src/styles/global.css` plus component `<style>` blocks). No client framework; only small inline scripts. No new npm dependencies unless really needed.
 - **Facts:** company facts and nav live in `src/lib/site.ts` only. Never hard-code them in pages. Use base-aware links through `href()`.
 - **Config:** `astro.config.mjs` with `BASE` defaulting to `/Madison-Networks` and `SITE` to `https://mishtuk.github.io`, plus `build.inlineStylesheets: 'always'`.
 - **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (already in the repo). Pages source = "GitHub Actions".
