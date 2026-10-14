@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ServiceArea from '../components/ServiceArea.astro';
+import AboutCopy from '../components/AboutCopy.astro';
+import { ABOUT, COMPANY } from '../lib/site';
+
+const ways = [
+  { h: 'Directly with you', p: 'Bring the job straight to us.' },
+  { h: 'With your technicians', p: 'We can work alongside your own technicians.' },
+  { h: 'With your NOC', p: 'We can coordinate with your Network Operations Center.' },
+];
+---
+
+<Base title={`About us | ${COMPANY.name}`} description={`${ABOUT.lede} ${COMPANY.tagline}.`}>
+  <Header slot="header" />
+  <PageHead eyebrow="About us" title="Fiber optic experts in the Philadelphia area" lede={COMPANY.tagline} />
+
+  <section class="section band-white"><div class="container"><AboutCopy /></div></section>
+
+  <section class="section band-light" aria-labelledby="how-title"><div class="container">
+    <div class="section-head">
+      <h2 class="h2" id="how-title">How we work</h2>
+      <p>{ABOUT.promise}</p>
+    </div>
+    <ul class="ways reveal" role="list">
+      {ways.map((w) => <li><h3>{w.h}</h3><p>{w.p}</p></li>)}
+    </ul>
+    <p class="lede" style="margin-top:2rem">We work closely with local ISP and telecom companies.</p>
+  </div></section>
+
+  <ServiceArea />
+  <CtaBand tone="band-light" />
+  <Footer slot="footer" />
+</Base>

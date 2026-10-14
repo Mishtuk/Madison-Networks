@@ -1,0 +1,20 @@
+---
+import { COMPANY } from '../lib/site';
+---
+<section class="section band-white" id="area" aria-labelledby="area-title"><div class="container split">
+  <div class="stack">
+    <p class="eyebrow">Service area</p>
+    <h2 class="h2" id="area-title">Philadelphia area first, with options nationwide</h2>
+    <p>Our services are available primarily throughout the Philadelphia area, however we do offer options nationwide.</p>
+    <ul class="area-facts" role="list">
+      <li><strong>Based in {COMPANY.city}, {COMPANY.region} {COMPANY.zip}</strong></li>
+      <li><strong>Primarily Philadelphia and the surrounding areas</strong></li>
+      <li><strong>Options nationwide</strong>Ask about your location.</li>
+    </ul>
+  </div>
+  <figure class="area-rings reveal" role="img" aria-label={`Based in ${COMPANY.city}, ${COMPANY.region}, serving the Philadelphia area first, with options nationwide.`}>
+    <div class="ring ring-nation"><span class="ring-label">Options nationwide</span></div>
+    <div class="ring ring-region"><span class="ring-label">Philadelphia area</span></div>
+    <div class="ring-hub"><span>{COMPANY.city}, {COMPANY.region}</span></div>
+  </figure>
+</div></section>

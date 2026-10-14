@@ -1,0 +1,5 @@
+---
+import { ABOUT } from '../lib/site';
+---
+<p class="about-lede">{ABOUT.lede}</p>
+<div class="about-cols reveal">{ABOUT.cols.map((c) => <p>{c}</p>)}</div>

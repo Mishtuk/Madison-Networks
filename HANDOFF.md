@@ -46,8 +46,8 @@ This is a rebuild of https://madisonnetworkservices.com (currently a one-page Wo
 - `#fcd088` fails contrast as text on light backgrounds. Make a darker "sand-ink" token for that case (the same idea as Riverside's `--gold-ink`). `#656d6d` on white is borderline, so check it for AA and darken it slightly if needed.
 - **Fonts:** Josefin Sans for headings and Open Sans for body, as on the original. Both are OFL licensed, so self-host the woff2 files.
 - **Imagery:** the fiber-optic light burst (blue, cyan and magenta on black). Use it in the hero and as the visual motif.
-  - `source/hero-original.jpg` is 2848×4288 portrait, from Unsplash (Umberto, free to use).
-  - The original site used a wide crop of it.
+  - `source/hero-original.jpg` is 4288×2848 landscape, from Unsplash (Umberto, free to use).
+  - The burst sits at about (0.50, 0.52). Crops are in `public/media/`: `hero-wide-*` is 16:9 and `hero-tall-*` is 9:16.
 - **Logo:** none exists. The original uses the text title. Make a clean wordmark in Josefin Sans; don't invent a symbol.
 
 ## Look and feel

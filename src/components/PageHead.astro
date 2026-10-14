@@ -1,0 +1,8 @@
+---
+import Wide from './Wide.astro';
+const { eyebrow, title, lede } = Astro.props as { eyebrow: string; title: string; lede: string };
+---
+<section class="page-head on-dark">
+  <div class="page-head-media" aria-hidden="true"><Wide size="big" /></div>
+  <div class="container"><p class="eyebrow">{eyebrow}</p><h1>{title}</h1><p class="lede">{lede}</p></div>
+</section>

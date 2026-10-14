@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Wide from '../components/Wide.astro';
+import { COMPANY, href } from '../lib/site';
+---
+
+<Base title={`Page not found | ${COMPANY.name}`} description="That page could not be found.">
+  <Header slot="header" />
+  <section class="notfound on-dark">
+    <div class="band-media" aria-hidden="true"><Wide size="small" /></div>
+    <div class="container">
+      <p class="eyebrow">Error 404</p>
+      <h1>Page not found</h1>
+      <p>That link may be out of date or mistyped.</p>
+      <div class="btn-row"><a class="btn" href={href('/')}>Back to home</a><a class="btn btn-light" href={href('/services')}>Our services</a></div>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Base>

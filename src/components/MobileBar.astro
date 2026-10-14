@@ -1,0 +1,30 @@
+---
+import { COMPANY, href } from '../lib/site';
+import Icon from './Icon.astro';
+const here = Astro.url.pathname.replace(/\/$/, '');
+const cur = (p: string) => (here === href(p) || here.startsWith(href(p) + '/') ? 'page' : undefined);
+---
+
+<nav class="mobile-bar" aria-label="Quick actions">
+  <a href={href('/services')} aria-current={cur('/services')}><Icon name="toolbox" /><span>Services</span></a>
+  <a class="is-urgent" href={href('/contact?type=restoration')}><Icon name="siren" /><span>Emergency</span></a>
+  {COMPANY.phone
+    ? <a href={`tel:${COMPANY.phone}`}><Icon name="phone" /><span>Call</span></a>
+    : <a href={`mailto:${COMPANY.email}`}><Icon name="envelope-simple" /><span>Email</span></a>}
+  <a href={href('/contact')} aria-current={cur('/contact')}><Icon name="chat-centered-text" /><span>Contact</span></a>
+</nav>
+
+<script is:inline>
+  (() => {
+    const bar = document.querySelector('.mobile-bar');
+    let last = scrollY, ticking = false;
+    const update = () => {
+      const y = scrollY, nearEnd = innerHeight + y >= document.documentElement.scrollHeight - 120;
+      if (nearEnd || y < 80 || y < last - 6) bar.classList.remove('is-hidden');
+      else if (y > last + 6) bar.classList.add('is-hidden');
+      if (Math.abs(y - last) > 6) last = y;
+      ticking = false;
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  })();
+</script>

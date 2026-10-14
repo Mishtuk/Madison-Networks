@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Wide from '../components/Wide.astro';
+import { COMPANY, SERVICES, href } from '../lib/site';
+
+const chips = ['Splicing and termination', 'Testing and certification', 'Emergency restoration'];
+const tones = ['band-white', 'band-light', 'band-dark band-emergency'];
+---
+
+<Base title={`Fiber optic services | ${COMPANY.name}`} description="Fiber optic splicing and termination, cable testing and certification, and 24x7 emergency restoration in the Philadelphia area.">
+  <Header slot="header" />
+  <PageHead eyebrow="Services" title="Fiber optic services" lede="We can work directly with you, your technicians or your Network Operations Centers (NOC)." />
+
+  <nav class="subnav" aria-label="On this page"><div class="container"><ul class="chips">
+    {SERVICES.map((s, i) => <li><a href={`#${s.id}`}>{chips[i]}</a></li>)}
+  </ul></div></nav>
+
+  {SERVICES.map((s, i) => {
+    const urgent = s.id === 'restoration';
+    return (
+      <section class={`section ${tones[i]}`} id={s.id} aria-labelledby={`${s.id}-title`}>
+        {urgent && <div class="band-media" aria-hidden="true"><Wide size="big" lazy /></div>}
+        <div class="container svc-section">
+          <div class="svc-section-head">
+            {urgent && <span class="svc-tag">24x7</span>}
+            <h2 id={`${s.id}-title`}>{s.title}</h2>
+            <div class="btn-row"><a class={urgent ? 'btn' : 'btn btn-dark'} href={href(`/contact?type=${s.id}`)}>Request service</a></div>
+            {urgent && <p class="emergency-note">Or email <a class="text-link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></p>}
+          </div>
+          <ul class="svc-items" role="list">
+            {s.items.map((it) => <li class={it.startsWith('Re-entering') ? 'wide' : undefined}>{it}</li>)}
+          </ul>
+        </div>
+      </section>
+    );
+  })}
+
+  <CtaBand tone="band-light" />
+  <Footer slot="footer" />
+</Base>

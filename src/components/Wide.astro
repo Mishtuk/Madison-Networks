@@ -1,0 +1,12 @@
+---
+// Decorative wide hero crop (avif/webp). One cached file reused across the site.
+import { photo } from '../lib/site';
+const { size = 'small', lazy = false } = Astro.props as { size?: 'small' | 'big'; lazy?: boolean };
+const p = photo('wide');
+const set = (s: string) => (size === 'small' ? s.split(', ')[0] : s);
+---
+<picture>
+  <source type="image/avif" srcset={set(p.avif)} sizes="100vw" />
+  <source type="image/webp" srcset={set(p.webp)} sizes="100vw" />
+  <img src={p.src} alt="" width="1920" height="1080" loading={lazy ? 'lazy' : undefined} fetchpriority={lazy ? undefined : 'high'} decoding="async" />
+</picture>

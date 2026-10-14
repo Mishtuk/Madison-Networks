@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import Wide from '../components/Wide.astro';
+import ServiceArea from '../components/ServiceArea.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AboutCopy from '../components/AboutCopy.astro';
+import { COMPANY, SERVICES, href, photo } from '../lib/site';
+
+const tall = photo('tall');
+const wide = photo('wide');
+const [splicing, testing, restoration] = SERVICES;
+const who = [
+  { icon: 'cell-tower', h: 'ISPs and telecom companies', p: 'We work closely with local ISP and telecom companies.' },
+  { icon: 'monitor', h: 'Network Operations Centers', p: 'We can work with your NOC directly.' },
+  { icon: 'hard-hat', h: 'Your technicians', p: 'We can work alongside your own technicians.' },
+  { icon: 'buildings', h: 'Businesses', p: 'Fiber optics solutions for businesses throughout Philadelphia and the surrounding areas.' },
+];
+const steps = [
+  { icon: 'magnifying-glass', t: 'Troubleshooting' },
+  { icon: 'map-pin', t: 'Identification of the damage location' },
+  { icon: 'wrench', t: 'Repair service' },
+  { icon: 'clock', t: '24x7 rapid response support' },
+];
+---
+
+<Base title={`${COMPANY.name} | ${COMPANY.tagline}`} localBusiness>
+  <Header slot="header" overlay />
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 699px) and (orientation: portrait)" type="image/avif" srcset={tall.avif} sizes="100vw" />
+        <source media="(max-width: 699px) and (orientation: portrait)" type="image/webp" srcset={tall.webp} sizes="100vw" />
+        <source type="image/avif" srcset={wide.avif} sizes="100vw" />
+        <source type="image/webp" srcset={wide.webp} sizes="100vw" />
+        <img src={wide.src} alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+    <div class="container hero-content">
+      <p class="eyebrow fade-up">{COMPANY.tagline}</p>
+      <h1 id="hero-title" class="hero-title fade-up" style="--i:1">Fiber splicing, testing and <span class="accent">restoration</span></h1>
+      <p class="hero-sub fade-up" style="--i:2">{COMPANY.name} works with ISPs, telecoms, NOCs and businesses across the Philadelphia area, with options nationwide.</p>
+      <div class="btn-row fade-up" style="--i:3">
+        <a class="btn" href={href('/contact')}>Request service</a>
+        <a class="btn btn-light" href={href('/contact?type=restoration')}>Emergency restoration</a>
+      </div>
+    </div>
+    <div class="hero-strip"><div class="container strip-inner">
+      <p><strong>{COMPANY.city}, {COMPANY.region}.</strong> Serving the Philadelphia area, with options nationwide.</p>
+      <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+    </div></div>
+  </section>
+
+  <section class="section band-white" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="services-title">Our services</h2>
+        <p>At Madison we provide a professional experience to assist you with your needs as quickly as possible.</p>
+      </div>
+      <div class="svc-grid reveal">
+        <article class="card svc-card svc-card--main">
+          <h3>{splicing.title}</h3>
+          <ul class="checklist cols-2">{splicing.items.map((i) => <li>{i}</li>)}</ul>
+          <a class="link link-arrow" href={href('/services#splicing')}>View splicing services</a>
+        </article>
+        <article class="card svc-card svc-card--alt">
+          <h3>{testing.title}</h3>
+          <ul class="checklist">{testing.items.map((i) => <li>{i}</li>)}</ul>
+          <a class="link link-arrow" href={href('/services#testing')}>View testing services</a>
+        </article>
+        <article class="card svc-card svc-card--dark">
+          <div class="svc-card-media" aria-hidden="true"><Wide size="small" lazy /></div>
+          <span class="svc-tag">24x7</span>
+          <h3>{restoration.title}</h3>
+          <ul class="checklist cols-2">{restoration.items.map((i) => <li>{i}</li>)}</ul>
+          <a class="link link-arrow" href={href('/services#restoration')}>View restoration</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-light" aria-labelledby="who-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="who-title">Who we work with</h2>
+        <p>We can work directly with you, your technicians or your Network Operations Centers (NOC).</p>
+      </div>
+      <ul class="who-grid reveal" role="list">
+        {who.map((w) => <li class="who-item"><Icon name={w.icon} /><h3>{w.h}</h3><p>{w.p}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <ServiceArea />
+
+  <section class="section band-dark band-emergency" id="emergency" aria-labelledby="emergency-title">
+    <div class="band-media" aria-hidden="true"><Wide size="big" lazy /></div>
+    <div class="container emergency-inner">
+      <div class="stack">
+        <h2 id="emergency-title">Fiber down? <span class="accent">24x7</span> rapid response.</h2>
+        <p class="lede">Emergency restoration, from troubleshooting to repair.</p>
+        <div class="btn-row">
+          <a class="btn" href={href('/contact?type=restoration')}>Request emergency service</a>
+          {COMPANY.phone && <a class="btn btn-light" href={`tel:${COMPANY.phone}`}>Call {COMPANY.phone}</a>}
+        </div>
+        <p class="emergency-note">Or email <a class="text-link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></p>
+      </div>
+      <ul class="emergency-steps reveal" role="list">
+        {steps.map((s) => <li><Icon name={s.icon} />{s.t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band-light">
+    <div class="container">
+      <h2 class="sr-only">About us</h2>
+      <AboutCopy />
+      <p><a class="link link-arrow" href={href('/about')}>More about us</a></p>
+    </div>
+  </section>
+
+  <CtaBand />
+  <Footer slot="footer" />
+</Base>

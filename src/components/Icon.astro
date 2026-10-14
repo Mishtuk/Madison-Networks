@@ -1,0 +1,5 @@
+---
+import { ICONS } from '../lib/icons';
+const { name } = Astro.props as { name: string };
+---
+<svg viewBox="0 0 256 256" aria-hidden="true" set:html={ICONS[name]} />

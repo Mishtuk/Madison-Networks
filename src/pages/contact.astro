@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHead from '../components/PageHead.astro';
+import { COMPANY, SERVICES } from '../lib/site';
+
+const types = [...SERVICES.map((s) => ({ id: s.id, label: s.title })), { id: 'other', label: 'Something else' }];
+---
+
+<Base title={`Request service | ${COMPANY.name}`} description={`Request fiber optic service from ${COMPANY.name}. Tell us about the job and how to reach you.`}>
+  <Header slot="header" />
+  <PageHead eyebrow="Contact" title="Request service" lede="Tell us about the job and how to reach you." />
+
+  <section class="section band-white"><div class="container contact-layout">
+    <form class="form" id="request" action={`mailto:${COMPANY.email}`} method="post" enctype="text/plain">
+      <p class="form-note">Fields marked <span class="req" aria-hidden="true">*</span> are required.</p>
+      <fieldset class="field"><legend>Name <span class="req" aria-hidden="true">*</span></legend>
+        <div class="form-row">
+          <div class="field"><label for="first">First</label><input id="first" name="first_name" autocomplete="given-name" required /></div>
+          <div class="field"><label for="last">Last</label><input id="last" name="last_name" autocomplete="family-name" required /></div>
+        </div></fieldset>
+      <div class="field"><label for="company">Company name</label><input id="company" name="company" autocomplete="organization" /></div>
+      <div class="form-row">
+        <div class="field"><label for="email">Email <span class="req" aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      <div class="field"><label for="type">Service type</label>
+        <select id="type" name="service">
+          {types.map((t) => <option value={t.id} selected={t.id === 'other'}>{t.label}</option>)}
+        </select></div>
+      <div class="field"><label for="msg">Comment or message <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="msg" name="message" required aria-describedby="msg-hint"></textarea>
+        <p class="field-hint" id="msg-hint">Helpful details: site address, cable type (loose tube or ribbon), fiber count and timing.</p></div>
+      <div class="form-actions"><button class="btn btn-dark" type="submit">Send request</button>
+        <p class="form-note">This opens your email app with the details filled in.</p></div>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="contact-card on-dark">
+        <h2>Emergency restoration</h2>
+        <p>24x7 rapid response support. Choose "Emergency restoration" above and your email is marked urgent.</p>
+        {COMPANY.phone && <a class="btn" href={`tel:${COMPANY.phone}`}>Call {COMPANY.phone}</a>}
+      </div>
+      <div class="contact-card">
+        <h2>Email</h2>
+        <div class="contact-email"><a class="text-link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a><button class="copy-btn" type="button" hidden data-email={COMPANY.email}>Copy</button></div>
+      </div>
+      <div class="contact-card">
+        <h2>Location</h2>
+        <p>{COMPANY.city}, {COMPANY.region} {COMPANY.zip}</p>
+        <p>{COMPANY.serviceArea}</p>
+      </div>
+    </aside>
+  </div></section>
+
+  <Footer slot="footer" />
+</Base>
+
+<script is:inline define:vars={{ to: COMPANY.email }}>
+  (() => {
+    const form = document.getElementById('request');
+    const sel = form.elements.service;
+    const t = new URLSearchParams(location.search).get('type');
+    if (t && [...sel.options].some((o) => o.value === t)) sel.value = t;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const v = (n) => form.elements[n].value.trim();
+      const who = v('company') || `${v('first_name')} ${v('last_name')}`;
+      const label = sel.options[sel.selectedIndex].text;
+      const subject = sel.value === 'restoration' ? `URGENT: Emergency restoration - ${who}` : `Service request: ${label} - ${who}`;
+      const body = [
+        `Name: ${v('first_name')} ${v('last_name')}`, `Company: ${v('company')}`, `Email: ${v('email')}`,
+        `Phone: ${v('phone')}`, `Service type: ${label}`, '', v('message'),
+      ].join('\n');
+      location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    const btn = document.querySelector('.copy-btn');
+    if (btn && navigator.clipboard) {
+      btn.hidden = false;
+      btn.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(btn.dataset.email); btn.textContent = 'Copied'; setTimeout(() => (btn.textContent = 'Copy'), 2000); } catch {}
+      });
+    }
+  })();
+</script>
