@@ -7,7 +7,7 @@ const cur = (p: string) => (here === href(p) || here.startsWith(href(p) + '/') ?
 
 <nav class="mobile-bar" aria-label="Quick actions">
   <a href={href('/services')} aria-current={cur('/services')}><Icon name="toolbox" /><span>Services</span></a>
-  <a class="is-urgent" href={href('/contact?type=restoration')}><Icon name="siren" /><span>Emergency</span></a>
+  <a class="is-urgent" href={href('/services#restoration')}><Icon name="siren" /><span>Emergency</span></a>
   {COMPANY.phone
     ? <a href={`tel:${COMPANY.phone}`}><Icon name="phone" /><span>Call</span></a>
     : <a href={`mailto:${COMPANY.email}`}><Icon name="envelope-simple" /><span>Email</span></a>}
